@@ -1,0 +1,2404 @@
+{
+	"info": {
+		"_postman_id": "a984ecee-f625-4d4e-bed7-5221345b1a40",
+		"name": "storm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "项目1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"200\");",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(\"1\");",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"小明\");",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.age).to.eql(18);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"{\\\"code\\\": 200, \\\"id\\\": \\\"1\\\", \\\"name\\\": \\\"\\\\u5c0f\\\\u660e\\\", \\\"age\\\": 18}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{localhostid}}/getuser?userid=1",
+					"protocol": "http",
+					"host": [
+						"{{localhostid}}"
+					],
+					"path": [
+						"getuser"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证msg的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser?userid=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"tests[\"验证业务状态码为code\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证name的值\"]=jsonData.name===\"小明\"\r",
+							"\r",
+							"tests[\"验证age的值\"]=jsonData.age===18\r",
+							"\r",
+							"tests[\"验证id的值\"]=jsonData.id===1"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证msg的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser?userid=-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"500\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser?userid=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证name的值\"]=jsonData.name===\"小明\"\r",
+							"\r",
+							"tests[\"验证id的值\"]=jsonData.id===\"1\"\r",
+							"\r",
+							"\r",
+							"tests[\"验证age的值\"]=jsonData.age===18"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfcde0bd-1490-4fc6-be78-421f459516ef",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7812bd35-48cb-4b84-87a4-5d677517c9c3",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证name的值\"]=jsonData.name===\"小明\"\r",
+							"\r",
+							"\r",
+							"tests[\"验证id的值\"]=jsonData.id===1\r",
+							"\r",
+							"tests[\"验证age的值\"]=jsonData.age===18"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目9",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7812bd35-48cb-4b84-87a4-5d677517c9c3",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "-1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7812bd35-48cb-4b84-87a4-5d677517c9c3",
+						"exec": [
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"500\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目11",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c3380dcd-52e6-4283-82f4-ddfcbdbe2ca7",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"\r",
+							"\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "100000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目12",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "186460d7-6fdb-437e-a401-663f1f009d72",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证name的值\"]=jsonData.name===\"小明\"\r",
+							"\r",
+							"tests[\"验证id的值\"]=jsonData.id===\"1\"\r",
+							"\r",
+							"tests[\"验证age的值\"]=jsonData.age===18"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser2?userid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser2"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目13",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f40b92f-4744-4c63-9ada-290bee79b77a",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"请设置Content-Type为application/json\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getuser2?userid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser2"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目14",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "139562e6-f3da-49b4-9135-7f592beaca7d",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"请设置Content-Type为application/json\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/JSON123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser2?userid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser2"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目15",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c214e6f2-ade6-408d-8675-aaca5c4252f5",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证name的值\"]=jsonData.name===\"小明\"\r",
+							"\r",
+							"tests[\"验证id的值\"]=jsonData.id===1\r",
+							"\r",
+							"tests[\"验证age的值\"]=jsonData.age===18"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getuser2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目16",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9479929-71f1-4d58-8213-cc24f1e54ab9",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"请设置Content-Type为application/json\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8081/getuser2?userid=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getuser2"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目17",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b99be60-105f-4858-bc3d-92c708b91679",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证userid的值\"]=jsonData.userid===1\r",
+							"\r",
+							"tests[\"验证money的值\"]=jsonData.money===1000"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"userid\": 1\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/getmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目18",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c30d8fcf-9708-471a-bae9-8d27d51265a5",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"参数错误\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/getmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目19",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cd0709c-5993-41d2-bc09-dbf283ccc4e2",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"userid\": 2\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/getmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目20",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d82adce0-b83a-4bd1-868d-94b34d38ca67",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"参数错误\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目21",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ba0c620-4fd7-4e2c-a151-ac182a4bd749",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"参数错误\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"userid\": “admin”\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/getmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目22",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b56445a8-76d3-4afd-9535-794126a30e70",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"405\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getmoney?userid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getmoney"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目23",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75c38b7a-6e9f-4da0-8421-de00bfd55a84",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目24",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a77d8c39-6e52-4b85-bb5a-bc3609c87d05",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"需要认证\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目25",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a0e22fb-6de5-44fd-b492-c7fb9b8b5a05",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"认证失败\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "111111",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目26",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a83a12d-3afb-46ae-906a-c2b4c4fb0c6b",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目27",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "283d63ce-2414-44b7-99d0-f0289db5f377",
+						"exec": [
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"500\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900.9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目28",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6859d9d-937f-49c7-bc35-178c362f3b12",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"405\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney?userid=1&money=900",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						},
+						{
+							"key": "money",
+							"value": "900"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目29",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f3c26ff-6a66-4382-bd60-8e8a8d0b554f",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=token12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目29 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f3c26ff-6a66-4382-bd60-8e8a8d0b554f",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=token12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目30",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9aee537e-4d29-4820-bcca-e0ae178c347a",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为code\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"cookie认证失败\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目31",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7319d21-d3fd-4e69-a23f-039e74d52b55",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为code\"]=jsonData.code===500\r",
+							"\r",
+							"\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"cookie非法\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=token1111",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目32",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4acc435e-addb-46a8-9f69-f19516b0bdb8",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为500\"]=jsonData.code===500\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证msg的值\"]=jsonData.msg===\"没有这个用户\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=token12345",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目33",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58269494-3080-44a9-9a7f-df1bc0ea7e98",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"500\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=token12345",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "900.9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/setmoney2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目34",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "177f2823-bde5-4aaa-9755-be4a8c2665a9",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"405\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/setmoney2?userid=1&money=900",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setmoney2"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "1"
+						},
+						{
+							"key": "money",
+							"value": "900"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目35",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "007ea025-ff21-4ef2-bb8e-8d8ad6a0b53c",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Desktop/1.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/uploadfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uploadfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目36",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e9da547-cbc9-47c6-882e-29468382916f",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Desktop/1.docx"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/uploadfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uploadfile"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目37",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a45b138e-84ef-4fb2-8ff2-af86e160e7c8",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"500\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Desktop/2.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/uploadfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uploadfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "项目38",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7477a0fd-7e84-4911-a154-3d10e9d1f196",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"/*断言协议状态码*/\r",
+							"pm.test(\"协议状态码为200\",function(){\r",
+							"    pm.response.to.have.status(200);});\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为code\"]=jsonData.code===200\r",
+							"\r",
+							"\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Desktop/中文.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/uploadfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uploadfile"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
