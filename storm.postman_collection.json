@@ -96,7 +96,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/E:/abc/cbd.txt"
+							"src": "/root/cbd.txt"
 						}
 					]
 				},
