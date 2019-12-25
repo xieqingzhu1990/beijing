@@ -60,6 +60,58 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://{{localhostid}}/uploadfile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1bcb111-8d5c-42f5-a1d4-9ec89d8eedae",
+						"exec": [
+							"/*序列化处理*/\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"    \r",
+							"/*检查响应状态码是否为200*/\r",
+							"tests[\"协议状态码为200\"] = responseCode.code === 200;\r",
+							"\r",
+							"/*验证业务状态码*/\r",
+							"tests[\"验证业务状态码为200\"]=jsonData.code===200\r",
+							"\r",
+							"/*验证name的值*/\r",
+							"tests[\"验证success的值\"]=jsonData.success===\"成功\"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/E:/abc/cbd.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{localhostid}}/uploadfile",
+					"protocol": "http",
+					"host": [
+						"{{localhostid}}"
+					],
+					"path": [
+						"uploadfile"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
